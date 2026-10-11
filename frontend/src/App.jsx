@@ -16,7 +16,7 @@ function App() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    currency: selectedCurrency
+                    currency: selectedCurrency || "GBP"
                 })
             });
             const data = await response.json();
