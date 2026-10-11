@@ -13,13 +13,13 @@ logging.getLogger("yfinance").setLevel(logging.CRITICAL)  # blocks non-critical 
 app = Flask(__name__)
 CORS(app)
 currency = "GBP"
-db = Database()
 
 @app.route("/portfolio", methods= ["POST"])
 def portfolio():
     data = request.get_json()
     global currency
     currency = data.get("currency", "GBP")
+    db = Database()
     my_portfolio = Portfolio(db)
     grouped_stocks = my_portfolio.get_grouped_stocks()
     if not grouped_stocks:
