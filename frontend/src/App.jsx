@@ -16,12 +16,16 @@ function App() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    currency: selectedCurrency || "GBP"
+                    currency: selectedCurrency
                 })
             });
             const data = await response.json();
             if (data.status === 200) {
                 SetPortfolioData(data.data)
+                const [currency, currencySet] = useState(() => {
+                const saved = localStorage.getItem("currency")
+                return saved ? saved : "GBP";
+        });
             }
         }
         useEffect(() => {
@@ -36,14 +40,14 @@ function App() {
     }
     const currency_cur = localStorage.getItem("currency") || "GBP"
     const currency_symb = localStorage.getItem("symbol") || "£"
-    const [currencies, setCurrencies] = useState(false);
+    const [showCurrencies, setCurrencies] = useState(false);
 
     return (
         <>
     <nav id="top-nav">
         <div id="cur-div">
-            <button className="main-font currency-button" id="current-currency" onClick={() => setCurrencies(!currencies)}>{currency_cur} {currency_symb}</button>
-            <Currency_buttons curClass={currencies ? "currencies active" : "currencies"} currentPick={saveCurrency}/>
+            <button className="main-font currency-button" id="current-currency" onClick={() => setCurrencies(!showCurrencies)}>{currency_cur} {currency_symb}</button>
+            <Currency_buttons curClass={showCurrencies ? "currencies active" : "currencies"} currentPick={saveCurrency}/>
         </div>
     </nav>
     <div className="pie-chart">

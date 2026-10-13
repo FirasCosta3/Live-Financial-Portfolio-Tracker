@@ -87,6 +87,7 @@ body{
 
 #current-currency{
     top: 1000px;
+    z-index: 10;
 }
 
 .currency-button:hover {
@@ -94,5 +95,5 @@ body{
 }
 
 .currency-button:focus{
-    outline: darkgreen solid 1.5px;
+    outline: none;
 }
