@@ -5,10 +5,16 @@ import {Currency_buttons} from './components/currencies.jsx';
 
 function App() {
         const [portfolioData, SetPortfolioData] = useState(null)
+        const [showCurrencies, setCurrencies] = useState(false);
         const [currency, currencySet] = useState(() => {
             const saved = localStorage.getItem("currency")
             return saved ? saved : "GBP";
         });
+        const [chartSymbol, setChartSymbol] = useState(() => {
+            const saved = localStorage.getItem("symbol")
+            return saved? saved : "£"
+        })
+
         const sendPortfolioData = async (selectedCurrency) => {
             const response = await fetch("http://127.0.0.1:5000/portfolio", {
                 method: "POST",
@@ -22,11 +28,8 @@ function App() {
             const data = await response.json();
             if (data.status === 200) {
                 SetPortfolioData(data.data)
-                const [currency, currencySet] = useState(() => {
-                const saved = localStorage.getItem("currency")
-                return saved ? saved : "GBP";
-        });
-            }
+                setChartSymbol(localStorage.getItem("symbol") || "£" )
+        };
         }
         useEffect(() => {
             localStorage.setItem("currency", currency)
@@ -40,7 +43,6 @@ function App() {
     }
     const currency_cur = localStorage.getItem("currency") || "GBP"
     const currency_symb = localStorage.getItem("symbol") || "£"
-    const [showCurrencies, setCurrencies] = useState(false);
 
     return (
         <>
@@ -51,10 +53,10 @@ function App() {
         </div>
     </nav>
     <div className="pie-chart">
-        <PieChart id="pie" symbol = {currency_symb} portfolio={portfolioData}/>
+        <PieChart id="pie" symbol = {chartSymbol} portfolio={portfolioData}/>
     </div>
         </>
-    );
-}
+        );
+    }
 export default App;
 
