@@ -70,6 +70,7 @@ class Portfolio:
                 cur_symbol = currency_symbols.get(user_currency)
                 if cur == user_currency:
                     amount_invested = live_price
+                    total_invested.append(amount_invested)
                 else:
                     try:
                         url = f"https://api.frankfurter.dev/v1/latest?base={cur}&symbols={user_currency}"
