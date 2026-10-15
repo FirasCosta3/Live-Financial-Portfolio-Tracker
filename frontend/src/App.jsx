@@ -56,9 +56,13 @@ function App() {
         })
         const stocks = await response.json(){
             if (stocks.status === 200){
-                
+                stockSearch(stocks.data)
             }
         }
+    }
+
+    function stockSearch(allStocks) => {
+            
     }
 
     const currency_cur = localStorage.getItem("currency") || "GBP"

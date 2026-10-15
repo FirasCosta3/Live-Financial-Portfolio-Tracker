@@ -35,9 +35,9 @@ def stocks():
     stock_choice = data.get("stock")
     stock_searches = search_stock(stock_choice)
     if stock_searches == False:
-        return jsonify({"data": False})
+        return jsonify({"status": 404})
     else:
-        return jsonify(stock_searches)
+        return jsonify({"data":stock_searches, "status": 200})
 
 
 def display_currency(currency_symbols):
