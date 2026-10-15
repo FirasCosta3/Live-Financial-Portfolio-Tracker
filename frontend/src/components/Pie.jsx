@@ -19,12 +19,13 @@ export const PieChart = ({portfolio, symbol}) => {
                 text: "Portfolio Value: "+symbol+portfolio_value,
                 color: "green",             
                 font: {
-                    size: 35,
+                    size: 33,
                     weight: "bold",
                 },
                 padding:{
                   top: 30,
                   bottom: 20,
+                  left: 0,
                 }
             },
             layout: {

@@ -9,8 +9,8 @@ body{
     background-color: #080A0C;
     margin: 0;
     padding: 0;
-    -webkit-backface-visibility: hidden;
-}
+    backface-visibility: hidden;
+}   
 
 .main-font{
     font-family: 'Inter', sans-serif;
@@ -38,6 +38,7 @@ body{
     height: auto;
     border: green solid 1px;
 }
+
 
 .currency-button{
     border-radius: 9px;
@@ -105,7 +106,7 @@ body{
     margin-top: 35px;
     position: absolute;
     cursor: pointer;
-    margin-left: 20px;
+    margin-left: 8px;
 }
 
 .stock-buy{
@@ -143,8 +144,38 @@ body{
     border-radius: 6px;
     padding: 5px;
     font-size: 19px;
+    width: 100%;
 }
 
 ::placeholder{
     color: black;
+}
+
+#stock-search-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search-buttons{
+    background: transparent;
+    outline: none; 
+    border: green solid 2px;
+    padding: 6px;
+    border-radius: 7px;
+    font-size: 19px;
+    cursor: pointer;
+    width: 100%;
+}
+
+#search-div{
+    position: relative;
+    width: 70%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border: green solid 1px;
 }

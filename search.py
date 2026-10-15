@@ -1,5 +1,5 @@
 import requests
-
+import yfinance as yf
 
 def search_stock(query):
     search_results = yf.Search(query, max_results=5).quotes
@@ -7,11 +7,11 @@ def search_stock(query):
     if search_results == []:
         return False
     else:
-        for i, result in enumerate(search_results):
+        for result in (search_results):
             shortname = result.get("shortname", "N/A")  # takes 'unknown' if the key doesn't have a pair
             symbol = result.get("symbol", "N/A")
             exchange = result.get("exchange", "N/A")
-            results.append(f"{i + 1}. {symbol}: {shortname}: {exchange}")
+            results.append(f"{symbol}: {shortname}: {exchange}")
     return results
 
 def get_stock(query, choice2, rows, currency_symbols):

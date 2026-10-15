@@ -14,7 +14,7 @@ app = Flask(__name__)
 CORS(app)
 currency = "GBP"
 
-@app.route("/portfolio", methods= ["POST"])
+@app.route("/portfolio", methods = ["POST"])
 def portfolio():
     data = request.get_json()
     global currency
@@ -32,8 +32,10 @@ def portfolio():
 @app.route("/stocks", methods = ["POST"])
 def stocks():
     data = request.get_json()
-    stock_choice = data.get("stock")
+    stock_choice = data.get("search","NVIDIA")
+    print(stock_choice, "j")
     stock_searches = search_stock(stock_choice)
+    print(stock_searches)
     if stock_searches == False:
         return jsonify({"status": 404})
     else:

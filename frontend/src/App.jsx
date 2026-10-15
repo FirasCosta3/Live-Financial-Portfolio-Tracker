@@ -7,6 +7,8 @@ function App() {
         const [portfolioData, SetPortfolioData] = useState(null)
         const [showCurrencies, setCurrencies] = useState(false);
         const [menuActive, setMenuActive] = useState(false)
+        const [stockSearch, setStockSearch] = useState("")
+        const [foundStocks, setFoundStocks] = useState([])
         const [currency, currencySet] = useState(() => {
             const saved = localStorage.getItem("currency")
             return saved ? saved : "GBP";
@@ -43,26 +45,22 @@ function App() {
         setCurrencies(false)
     }
 
-    const findStock = async (search) => {
-        search.preventDefault();
+    const findStock = async (e) => {
+        e.preventDefault();
         const response = await fetch("http://127.0.0.1:5000/stocks", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                search: search 
+                search: stockSearch
             })
-        })
-        const stocks = await response.json(){
-            if (stocks.status === 200){
-                stockSearch(stocks.data)
-            }
+        });
+        const data = await response.json();
+        if (data.status === 200){
+            setFoundStocks(data.data)
         }
-    }
 
-    function stockSearch(allStocks) => {
-            
     }
 
     const currency_cur = localStorage.getItem("currency") || "GBP"
@@ -78,15 +76,24 @@ function App() {
     </nav>
     <div className="pie-chart">
         <button id="new-stock" className={"main-font"} onClick={() => setMenuActive(!menuActive)}>+ New stock</button>
-        <PieChart id="pie" symbol = {chartSymbol} portfolio={portfolioData}/>
+        <PieChart symbol = {chartSymbol} portfolio={portfolioData}/>
     </div>
     <div className={menuActive ? "stock-buy active" : "stock-buy"}>
-        <form id="stock-search-form" onSubmit={findStock}>
-            <input onChange={(e) => findStock(e.target.value)} id="stock-search" placeholder="Enter a stock or ticker" type="text"></input>
-        </form>
+        <div id="search-div">
+            <form id="stock-search-form" onSubmit={findStock}>
+                <input onChange={(e) => setStockSearch(e.target.value)} id="stock-search" placeholder="Enter a stock or ticker" type="text"></input>
+            </form>
+                {foundStocks?.map((stock, index) => {
+                    return (
+                        <div key={index} className="search-button-div">
+                            <button type="button" className="search-buttons">{stock}</button>
+                        </div>
+                    );
+            })}
+            </div>
     </div>
         </>
         );
-    }
+}
 export default App;
 
