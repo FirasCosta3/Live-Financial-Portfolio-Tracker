@@ -3,7 +3,7 @@ import logging
 from database import Database
 from stock import currency_symbols
 from portfolio import Portfolio
-from search import get_stock, get_details
+from search import get_stock, get_details, search_stock
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
@@ -28,6 +28,16 @@ def portfolio():
     db_data = my_portfolio.display_portfolio(average_price, currency, currency_symbols)
     print(db_data)
     return jsonify({"data": db_data, "status": 200})
+
+@app.route("/stocks", methods = ["POST"])
+def stocks():
+    data = request.get_json()
+    stock_choice = data.get("stock")
+    stock_searches = search_stock(stock_choice)
+    if stock_searches == False:
+        return jsonify({"data": False})
+    else:
+        return jsonify(stock_searches)
 
 
 def display_currency(currency_symbols):

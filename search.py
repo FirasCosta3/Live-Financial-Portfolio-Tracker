@@ -1,22 +1,26 @@
 import requests
 
 
-def get_stock(choice2, rows, currency_symbols):
+def search_stock(query):
+    search_results = yf.Search(query, max_results=5).quotes
+    results =[]
+    if search_results == []:
+        return False
+    else:
+        for i, result in enumerate(search_results):
+            shortname = result.get("shortname", "N/A")  # takes 'unknown' if the key doesn't have a pair
+            symbol = result.get("symbol", "N/A")
+            exchange = result.get("exchange", "N/A")
+            results.append(f"{i + 1}. {symbol}: {shortname}: {exchange}")
+    return results
+
+def get_stock(query, choice2, rows, currency_symbols):
     stock_info = []
     while True:  # verify if user input is a real stock name / ticker
-        print("If this was a mistake type [M] to go back to the menu")
-        user_currency = input("Enter the currency you have purchased your stock with e.g ('GBP', 'USD')\n").upper()
-        while user_currency not in currency_symbols.keys():
-            print("Enter a valid currency")
-            user_currency = input(
-                "Enter the currency you have purchased your stocks with e.g ('GBP', 'USD')\n").upper()
-        query = input("Enter a ticker symbol or a stock name\n").upper()
-        if query.strip() == "M":
-            return query
         try:
             search_results = yf.Search(query, max_results=5).quotes
             if search_results == []:
-                print(f"No matching results for '{query}'Make sure you check the spelling!\n")
+                return False
             else:
                 for i, result in enumerate(search_results):
                     shortname = result.get("shortname", "N/A")  # takes 'unknown' if the key doesn't have a pair

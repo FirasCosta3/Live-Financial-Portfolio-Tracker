@@ -6,6 +6,7 @@ import {Currency_buttons} from './components/currencies.jsx';
 function App() {
         const [portfolioData, SetPortfolioData] = useState(null)
         const [showCurrencies, setCurrencies] = useState(false);
+        const [menuActive, setMenuActive] = useState(false)
         const [currency, currencySet] = useState(() => {
             const saved = localStorage.getItem("currency")
             return saved ? saved : "GBP";
@@ -41,6 +42,25 @@ function App() {
         currencySet(name)
         setCurrencies(false)
     }
+
+    const findStock = async (search) => {
+        search.preventDefault();
+        const response = await fetch("http://127.0.0.1:5000/stocks", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                search: search 
+            })
+        })
+        const stocks = await response.json(){
+            if (stocks.status === 200){
+                
+            }
+        }
+    }
+
     const currency_cur = localStorage.getItem("currency") || "GBP"
     const currency_symb = localStorage.getItem("symbol") || "£"
 
@@ -53,7 +73,13 @@ function App() {
         </div>
     </nav>
     <div className="pie-chart">
+        <button id="new-stock" className={"main-font"} onClick={() => setMenuActive(!menuActive)}>+ New stock</button>
         <PieChart id="pie" symbol = {chartSymbol} portfolio={portfolioData}/>
+    </div>
+    <div className={menuActive ? "stock-buy active" : "stock-buy"}>
+        <form id="stock-search-form" onSubmit={findStock}>
+            <input onChange={(e) => findStock(e.target.value)} id="stock-search" placeholder="Enter a stock or ticker" type="text"></input>
+        </form>
     </div>
         </>
         );

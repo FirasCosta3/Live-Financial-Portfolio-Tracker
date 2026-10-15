@@ -16,8 +16,8 @@ export const PieChart = ({portfolio, symbol}) => {
         plugins: {
             title: {
                 display: true,
-                text: "Total Value: "+symbol+portfolio_value,
-                color: "green",
+                text: "Portfolio Value: "+symbol+portfolio_value,
+                color: "green",             
                 font: {
                     size: 35,
                     weight: "bold",
