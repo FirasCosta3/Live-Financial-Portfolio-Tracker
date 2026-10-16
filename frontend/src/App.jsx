@@ -81,7 +81,7 @@ function App() {
     <div className={menuActive ? "stock-buy active" : "stock-buy"}>
         <div id="search-div">
             <form id="stock-search-form" onSubmit={findStock}>
-                <input onChange={(e) => setStockSearch(e.target.value)} id="stock-search" placeholder="Enter a stock or ticker" type="text"></input>
+                <input autocomplete="off" onChange={(e) => setStockSearch(e.target.value)} id="stock-search" placeholder="Enter a stock or ticker" type="text"></input>
             </form>
                 {foundStocks?.map((stock, index) => {
                     return (

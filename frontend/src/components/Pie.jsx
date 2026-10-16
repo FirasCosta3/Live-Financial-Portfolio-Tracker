@@ -25,7 +25,6 @@ export const PieChart = ({portfolio, symbol}) => {
                 padding:{
                   top: 30,
                   bottom: 20,
-                  left: 0,
                 }
             },
             layout: {

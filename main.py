@@ -32,15 +32,13 @@ def portfolio():
 @app.route("/stocks", methods = ["POST"])
 def stocks():
     data = request.get_json()
-    stock_choice = data.get("search","NVIDIA")
-    print(stock_choice, "j")
+    stock_choice = data.get("search")
     stock_searches = search_stock(stock_choice)
     print(stock_searches)
     if stock_searches == False:
         return jsonify({"status": 404})
     else:
-        return jsonify({"data":stock_searches, "status": 200})
-
+        return jsonify({"data": stock_searches, "status": 200})
 
 def display_currency(currency_symbols):
     display_cur = input("Enter the currency you would like to view your portfolio in e.g 'GBP' or 'USD'\n").upper()

@@ -133,18 +133,20 @@ body{
 }
 
 #stock-search-form{
-    margin-top: 15px;
+    margin-top: 4px;
 }
 
 #stock-search{
     text-align: center;
     background: transparent;
     outline: none;
-    border: green solid 2px;
-    border-radius: 6px;
+    border: 0;
+    border-bottom: solid green 2px;
     padding: 5px;
     font-size: 19px;
     width: 100%;
+    height: 50px;
+    box-sizing: border-box;
 }
 
 ::placeholder{
@@ -159,23 +161,28 @@ body{
 }
 
 .search-buttons{
+    position: relative;
     background: transparent;
     outline: none; 
-    border: green solid 2px;
+    border: 0;
     padding: 6px;
-    border-radius: 7px;
     font-size: 19px;
+    height: 50px;
     cursor: pointer;
+    border-bottom: green solid 2px;
     width: 100%;
 }
 
 #search-div{
     position: relative;
     width: 70%;
-    height: 70%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    border: green solid 1px;
+    align-items: stretch;
+    border: green solid 2px;
+    border-bottom: 0;
+}
+
+.search-buttons:hover {
+    background-color: #6E6D6D;
 }
