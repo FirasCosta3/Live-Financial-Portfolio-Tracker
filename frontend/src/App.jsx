@@ -102,8 +102,15 @@ function App() {
                         </div>
                     );
                 })}
-                <div id={desiredStock ? "show-desired active" : "show-desired"}>
-                    <h1>{desiredStock}</h1>
+                <div id ="show-desired" className={desiredStock ? "active" : ""}>
+                    <h1 id="desired-title" className="main-font">{desiredStock}</h1>
+                    <div id="buy-sell-div">
+                        <button className="buy-sell">Buy</button>
+                        <button className="buy-sell">Sell</button>
+                    </div>
+                    <div id="stock-details">
+                        <p>test</p>
+                    </div>
                 </div>
             </div>
     </div>

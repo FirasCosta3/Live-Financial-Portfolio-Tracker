@@ -9,7 +9,6 @@ from flask_cors import CORS
 
 logging.getLogger("yfinance").setLevel(logging.CRITICAL)  # blocks non-critical errors like 404 when user inputs invalid ticker
 
-
 app = Flask(__name__)
 CORS(app)
 currency = "GBP"
