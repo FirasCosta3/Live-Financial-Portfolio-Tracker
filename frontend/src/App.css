@@ -119,17 +119,39 @@ body{
     position: absolute;
     top: 48%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-48%, -58%);
     width : 700px;
     height: 700px;
     opacity: 0;
     border-radius: 9px;
+    transition: 0.3s ease, opacity 0.2s ease;
 }
 
 .stock-buy.active{
     visibility: visible;
+    transform: translate(-48%, -50%);
     opacity: 1;
     background: grey;
+}
+
+#cancel-button{
+    position: absolute;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: green solid 2px;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    left: 98%;
+    transform: translateX(-98%);
+}
+
+#x-icon{
+    flex-shrink: 0;
 }
 
 #stock-search-form{
@@ -143,7 +165,8 @@ body{
     border: 0;
     border-bottom: solid green 2px;
     padding: 5px;
-    font-size: 19px;
+    height: 50%;
+    font-size: 30px;
     width: 100%;
     height: 50px;
     box-sizing: border-box;
@@ -185,4 +208,21 @@ body{
 
 .search-buttons:hover {
     background-color: #6E6D6D;
+}
+
+#show-desired{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+}
+
+#show-desired.active{
+    opacity: 1;
+    visibility: visible;
+    border-bottom: green solid 2px;
+    color: blue;
 }

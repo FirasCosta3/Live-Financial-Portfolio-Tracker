@@ -4,11 +4,12 @@ import './App.css';
 import {Currency_buttons} from './components/currencies.jsx';
 
 function App() {
-        const [portfolioData, SetPortfolioData] = useState(null)
+        const [portfolioData, setPortfolioData] = useState(null)
         const [showCurrencies, setCurrencies] = useState(false);
         const [menuActive, setMenuActive] = useState(false)
         const [stockSearch, setStockSearch] = useState("")
         const [foundStocks, setFoundStocks] = useState([])
+        const [desiredStock, setDesiredStock] = useState("")
         const [currency, currencySet] = useState(() => {
             const saved = localStorage.getItem("currency")
             return saved ? saved : "GBP";
@@ -30,7 +31,7 @@ function App() {
             });
             const data = await response.json();
             if (data.status === 200) {
-                SetPortfolioData(data.data)
+                setPortfolioData(data.data)
                 setChartSymbol(localStorage.getItem("symbol") || "£" )
         };
         }
@@ -60,12 +61,18 @@ function App() {
         if (data.status === 200){
             setFoundStocks(data.data)
         }
+        else {
+            setFoundStocks([])
+        }
 
     }
 
     const currency_cur = localStorage.getItem("currency") || "GBP"
     const currency_symb = localStorage.getItem("symbol") || "£"
-
+    const changeSearches = (index) => {
+        setFoundStocks([]);
+        setDesiredStock(foundStocks[index])
+    }
     return (
         <>
     <nav id="top-nav">
@@ -79,17 +86,25 @@ function App() {
         <PieChart symbol = {chartSymbol} portfolio={portfolioData}/>
     </div>
     <div className={menuActive ? "stock-buy active" : "stock-buy"}>
+        <button id="cancel-button" onClick={() => setMenuActive(!menuActive)}>
+            <svg id="x-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="50" height="50">
+                <path d="M8.5 8.5 L15.5 15.5 M15.5 8.5 L8.5 15.5" stroke="black" strokeWidth="2" strokeLinecap="round" fill="none"/>
+            </svg>
+        </button>
         <div id="search-div">
-            <form id="stock-search-form" onSubmit={findStock}>
-                <input autocomplete="off" onChange={(e) => setStockSearch(e.target.value)} id="stock-search" placeholder="Enter a stock or ticker" type="text"></input>
+            <form id="stock-search-form" onSubmit={(e) => {findStock(e); setDesiredStock("")}}>
+                <input  autoComplete="off" onChange={(e) => setStockSearch(e.target.value)} id="stock-search" placeholder="Enter a stock or ticker" type="text"></input>
             </form>
                 {foundStocks?.map((stock, index) => {
                     return (
                         <div key={index} className="search-button-div">
-                            <button type="button" className="search-buttons">{stock}</button>
+                            <button type="button" className="search-buttons" onClick={() => changeSearches(index)}>{stock}</button>
                         </div>
                     );
-            })}
+                })}
+                <div id={desiredStock ? "show-desired active" : "show-desired"}>
+                    <h1>{desiredStock}</h1>
+                </div>
             </div>
     </div>
         </>
